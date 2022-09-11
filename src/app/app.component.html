@@ -1,16 +1,16 @@
-<form>
+<form #tmpForm='ngForm' (ngSubmit)="submit(tmpForm)" >
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <input type="email" class="form-control" #email="ngModel" [class.is-invalid]="email.invalid && email.touched " [(ngModel)]="user.email" name="email" pattern="^[a-z0-9.%]+@[a-z0-9.-]+\.[a-z]{2,4}"equired id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted" [class.d-none]='email.valid || email.touched' >Enter Your Email</small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <input type="password" class="form-control" [(ngModel)]="user.pswd" name="pswd" minlength="8" required  id="exampleInputPassword1" placeholder="Password">
   </div>
   <div class="form-group form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" [disabled]="tmpForm.form.invalid" >Submit</button>
 </form>
